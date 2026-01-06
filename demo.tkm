@@ -1,0 +1,137 @@
+-- tokimun example file
+-- tests all major features
+
+-- Variables (local by default)
+name = "tokimun"
+global VERSION = "0.1"
+
+-- 0-indexed arrays
+arr = {"first", "second", "third"}
+print(arr[0])  -- should print "first"
+print(arr[1])  -- should print "second"
+
+-- Template strings
+greeting = `hello ${name} v${VERSION}!`
+print(greeting)
+
+-- Math with template
+result = `2 + 2 = ${2 + 2}`
+print(result)
+
+-- Numbers: binary and octal
+bin = 0b1010
+oct = 0o17
+hex = 0xFF
+print(`binary 0b1010 = ${bin}`)
+print(`octal 0o17 = ${oct}`)
+print(`hex 0xFF = ${hex}`)
+
+-- Compound assignment
+counter = 0
+counter += 5
+counter *= 2
+print(`counter = ${counter}`)
+
+message = "hello"
+message ..= " world"
+print(message)
+
+-- Not equal operator
+x = 5
+if x != 10 then
+  print("x is not 10")
+end
+
+-- Null coalescing
+maybeNil = nil
+value = maybeNil ?? "default value"
+print(`value = ${value}`)
+
+-- Also works with non-nil
+notNil = "actual value"
+value2 = notNil ?? "default"
+print(`value2 = ${value2}`)
+
+-- Optional chaining
+user = {
+  name = "alice",
+  address = {
+    city = "wonderland",
+    zip = "12345"
+  }
+}
+
+city = user?.address?.city
+print(`city = ${city}`)
+
+-- nil optional chain
+emptyUser = nil
+noCity = emptyUser?.address?.city
+print(`noCity is nil: ${noCity == nil}`)
+
+-- Continue in loops
+print("odd numbers 0-9:")
+for i = 0, 9 do
+  if i % 2 == 0 then
+    continue
+  end
+  print(i)
+end
+
+-- Switch statement
+function checkStatus(status)
+  switch status
+    case "ok":
+      print("all good!")
+    case "error", "fail":
+      print("something went wrong")
+    default:
+      print("unknown status: " .. status)
+  end
+end
+
+checkStatus("ok")
+checkStatus("error")
+checkStatus("pending")
+
+-- Functions (same as Lua)
+function greet(who)
+  return `hello ${who}!`
+end
+
+print(greet("world"))
+
+-- Local function
+local function double(n)
+  return n * 2
+end
+
+print(`double(21) = ${double(21)}`)
+
+-- Tables with trailing commas
+config = {
+  debug = true,
+  level = 5,
+  name = "test",
+}
+
+-- Nested table access (0-indexed)
+data = {
+  {"a", "b", "c"},
+  {"d", "e", "f"},
+}
+print(`data[0][0] = ${data[0][0]}`)
+print(`data[1][2] = ${data[1][2]}`)
+
+-- While loop with continue
+i = 0
+print("while loop, skip 3:")
+while i < 5 do
+  i += 1
+  if i == 3 then
+    continue
+  end
+  print(i)
+end
+
+print("all tests complete!")
